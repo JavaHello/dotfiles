@@ -181,6 +181,12 @@ Plug 'brooth/far.vim'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 
+" jsx 插件
+Plug 'chemzqm/vim-jsx-improve'
+
+" 多光标插件
+Plug 'mg979/vim-visual-multi'
+
 call plug#end()
 " 主题设置
 colorscheme gruvbox
