@@ -7,13 +7,14 @@ return {
 		top = 0,
 		bottom = 0,
 	},
+	use_fancy_tab_bar = false,
 
 	font_size = 13,
 	font = wezterm.font_with_fallback({
-		"CaskaydiaCove Nerd Font Mono",
-		"Cascadia Mono PL",
+		"Hack Nerd Font Mono",
+		"Hack",
 	}),
 	keys = {
-		{ key = "n", mods = "SHIFT|CTRL", action = wezterm.action.ToggleFullScreen },
+		{ key = "Enter", mods = "CMD", action = wezterm.action.ToggleFullScreen },
 	},
 }
