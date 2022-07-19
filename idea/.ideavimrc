@@ -37,12 +37,15 @@ set NERDTree
 
 map <leader>b <Action>(ToggleLineBreakpoint)
 map <leader>o <Action>(FileStructurePopup)
+map <leader>w <Action>(CloseEditor)
+map <leader>n <Action>(NextTab)
+map <leader>p <Action>(PreviousTab)
 
 map <leader>fg <Action>(FindInPath)
 map <leader>fc <Action>(GotoClass)
 map <leader>ff <Action>(GotoFile)
 map <leader>fs <Action>(GotoSymbol)
-map <leader>s <Action>(SelectInProjectView)
+map <leader>e <Action>(SelectInProjectView)
 map gi <Action>(GotoImplementation)
 map gr <Action>(GotoDeclaration)
 
@@ -52,6 +55,7 @@ map [g <Action>(GotoPreviousError)
 map ]g <Action>(GotoNextError)
 map [m <Action>(MethodUp)
 map ]m <Action>(MethodDown)
+
 
 nnoremap gb :action Back<CR>
 nnoremap gf :action Forward<CR>
