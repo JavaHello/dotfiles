@@ -40,7 +40,8 @@ return {
     top = 0,
     bottom = 0,
   },
-  use_fancy_tab_bar = false,
+  -- use_fancy_tab_bar = false,
+  enable_tab_bar = false,
 
   font_size = 13,
   font = wezterm.font_with_fallback({
