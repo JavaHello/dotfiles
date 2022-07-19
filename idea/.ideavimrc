@@ -40,6 +40,7 @@ map <leader>o <Action>(FileStructurePopup)
 map <leader>w <Action>(CloseEditor)
 map <leader>n <Action>(NextTab)
 map <leader>p <Action>(PreviousTab)
+map <leader>= <Action>(ReformatCode)
 
 map <leader>fg <Action>(FindInPath)
 map <leader>fc <Action>(GotoClass)
