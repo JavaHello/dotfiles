@@ -42,7 +42,7 @@ return {
   },
   -- use_fancy_tab_bar = false,
   enable_tab_bar = false,
-  window_decorations = "NONE",
+  -- window_decorations = 'NONE',
 
   font_size = 13,
   font = wezterm.font_with_fallback({
