@@ -455,7 +455,9 @@ tmux_conf_uninstall_plugins_on_reload=true
 # set -g @tmux-gruvbox 'dark' # or 'light'
 
 # 启用真彩色
-set -g default-terminal "xterm-256color"
+# mac os 安装 tmux-256color 参考 https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
+ set -g default-terminal "tmux-256color"
+# set -g default-terminal "xterm-256color"
 # set -g default-terminal "screen-256color"
 set-option -ga terminal-overrides ",*256col*:Tc"
 
