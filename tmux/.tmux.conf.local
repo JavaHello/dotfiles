@@ -456,6 +456,7 @@ tmux_conf_uninstall_plugins_on_reload=true
 
 # 启用真彩色
 # mac os 安装 tmux-256color 参考 https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
+# htop 支持 tmux-256color https://gist.githubusercontent.com/nicm/ea9cf3c93f22e0246ec858122d9abea1/raw/37ae29fc86e88b48dbc8a674478ad3e7a009f357/tmux-256color
  set -g default-terminal "tmux-256color"
 # set -g default-terminal "xterm-256color"
 # set -g default-terminal "screen-256color"
