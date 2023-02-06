@@ -47,7 +47,6 @@ return {
   font_size = 13,
   font = wezterm.font_with_fallback({
     'Hack Nerd Font Mono',
-    'Hack',
     'Noto Sans Mono CJK SC',
   }),
   keys = {
