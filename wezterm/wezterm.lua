@@ -48,6 +48,7 @@ return {
   font = wezterm.font_with_fallback({
     'Hack Nerd Font Mono',
     'Hack',
+    'Noto Sans Mono CJK SC',
   }),
   keys = {
     { key = 'Enter', mods = 'CMD', action = wezterm.action.ToggleFullScreen },
