@@ -1,129 +1,126 @@
 {
-    "layer": "top",
-    "height": 30, 
-    "spacing": 4,
-    "modules-left": ["wlr/workspaces", "custom/media"],
-    "modules-center": ["mpd"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state",  "battery", "battery#bat2", "clock", "tray"],
-"wlr/workspaces": {
-     "format": "{icon}",
-     "on-scroll-up": "hyprctl dispatch workspace e+1",
-     "on-scroll-down": "hyprctl dispatch workspace e-1"
-},
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 2,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "tray": {
-        "spacing": 10
-    },
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
-    "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+
+  "layer": "top",
+  "position": "top", 
+  "height": 32,
+  
+  "modules-left":   ["wlr/workspaces", "wlr/taskbar"],
+  "modules-center": ["mpd"],
+  "modules-right":  ["tray", "pulseaudio", "network", "clock#date", "clock#time", "custom/power"],
+
+  "wlr/taskbar": {
+	"format": "{icon} {app_id}",
+	"icon-size": 14,
+	"icon-theme": "Papirus",
+	"tooltip-format": "{title}",
+	"on-click": "activate",
+	"on-click-middle": "close",
+  "on-click-right": "minimize-raise",
+	"ignore-list": [
+	    "Alacritty"
+	],
+	"app_ids-mapping": {
+	}
+  },
+
+  "wlr/workspaces": {
+    // "disable-scroll": true,
+    "sort-by-number": true,
+    "all-outputs": true,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format": "{icon}",
+    "format-icons": {
+      "1": "<span color=\"#EBDBB2\"></span>",
+      "2": "<span color=\"#EBDBB2\"></span>",
+      "3": "<span color=\"#EBDBB2\"></span>",
+      "4": "<span color=\"#EBDBB2\"></span>",
+      "5": "<span color=\"#EBDBB2\"></span>",
+      "6": "<span color=\"#EBDBB2\"></span>",
+      "7": "<span color=\"#EBDBB2\"></span>",
+      "8": "<span color=\"#EBDBB2\">9</span>",
+      "9": "<span color=\"#EBDBB2\">9</span>",
+      "urgent": "",
+      "focused": "",
+      "default": ""
     }
+  },
+
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10
+  },
+
+  "clock#time": {
+    "interval": 1,
+    "format": "    {:%H:%M:%S} ",
+    "tooltip": false
+  },
+
+  "clock#date": {
+    "interval": 10,
+    "format": "    {:%e %b %y} ", // icon: calendar-alt
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "network": {
+    "format-wifi": " 直 {essid} ",
+    "format-ethernet": "   {essid} ",
+    "format-linked": "{ifname} (no ip)  ",
+    "format-disconnected": " 睊 disconnected ",
+    "tooltip-format-wifi": "signal strenght: {signalstrength}% | down speed: {bandwidthdownbits}, up speed: {bandwidthupbits}"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}% ",
+    "format-muted": "   muted ",
+    "scroll-step": 5,
+    "on-click": "pactl set-sink-mute 0 toggle",
+    "on-click-middle": "pavucontrol",
+    //"on-click-right": "~/.config/hypr/scripts/pactl_toggle.sh",
+    "format-icons": {
+      "headphone": "   ",
+      "hands-free": "   ",
+      "headset": "   ",
+      "phone": "   ",
+      "portable": "   ",
+      "car": "    ",
+      "default": ["   ", "   ", " 墳 ", "   "]
+    }
+  },
+
+  "custom/power": {
+    "format": " ⏻ ",
+    //"on-click": "~/.config/hypr/scripts/rofi-power"
+  },
+
+  "mpd": {
+    "format": " {stateIcon}   {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})    ",
+    "format-disconnected": " Disconnected  ",
+    "format-stopped": " Stopped  ",
+    "interval": 2,
+    "consume-icons": {
+      "on": " " // Icon shows only when "consume" is on
+    },
+    "random-icons": {
+      "off": "<span color=\"#fb4934\"> </span>", // Icon grayed out when "random" is off
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  }
 }

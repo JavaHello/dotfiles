@@ -2,6 +2,7 @@ window {
   margin: 0px;
   border: 0px solid #cc241d;
   background-color: #1d2021;
+  border-radius: 4px;
 }
 
 #input {
@@ -25,8 +26,9 @@ window {
 }
 
 #scroll {
-  margin: 0px;
+  padding: 4px 4px 8px 4px;
   border: 0px solid #fe8019;
+  border-radius: 0 0 4px 4px;
   background-color: #2e2e2e;
 }
 
@@ -46,4 +48,5 @@ window {
 }
 
 #img {
+  width: 50%;
 }
