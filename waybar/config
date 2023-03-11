@@ -3,8 +3,8 @@
     "height": 30, 
     "spacing": 4,
     "modules-left": ["wlr/workspaces", "custom/media"],
-    "modules-center": ["wlr/window"],
-    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state",  "battery", "battery#bat2", "clock", "tray"],
+    "modules-center": ["mpd"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state",  "battery", "battery#bat2", "clock", "tray"],
 "wlr/workspaces": {
      "format": "{icon}",
      "on-scroll-up": "hyprctl dispatch workspace e+1",
