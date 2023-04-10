@@ -11,7 +11,7 @@ icons=0
 max-icon-size=64
 default-timeout=5000
 ignore-timeout=1
-font=monospace 14
+font=Hack Nerd Font Mono 14
 
 [urgency=low]
 border-color=#a89984
