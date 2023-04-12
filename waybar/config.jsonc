@@ -79,7 +79,7 @@
   },
   "memory": {
     "interval": 5,
-    "format": " {}%",
+    "format": " {}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -158,14 +158,13 @@
   },
   "custom/media": {
     "format": "{icon} {}",
-    "return-type": "json",
-    "max-length": 40,
     "format-icons": {
-      "spotify": "",
-      "default": ""
+      "Playing": " ",
+      "Paused": " "
     },
-    "escape": true,
-    "exec": "$HOME/.config/waybar/custom_modules/mediaplayer.py 2> /dev/null" // Script in resources folder
-    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    "return-type": "json",
+    "max-length": 60,
+    "exec": "playerctl metadata --format '{\"text\": \"{{artist}} - {{title}}\", \"tooltip\": \"{{playerName}} : {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "playerctl play-pause"
   }
 }
