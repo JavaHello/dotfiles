@@ -92,8 +92,7 @@
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
-    "format": "{temperatureC}°C {icon}",
-    "format-icons": ["", "", ""]
+    "format": "{temperatureC}°C"
   },
   "network": {
     "format-wifi": " 󰖩 {essid} ",
@@ -119,7 +118,7 @@
       "phone": "   ",
       "portable": "   ",
       "car": "    ",
-      "default": ["   ", "   ", " 墳 ", "   "]
+      "default": ["   ", "   ", " 󰕾 ", "   "]
     }
   },
 
