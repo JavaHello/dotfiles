@@ -18,6 +18,7 @@ local function fonts()
   return font
 end
 return {
+  -- window_background_opacity = 0.8,
   color_scheme = 'Gruvbox dark, medium (base16)',
   window_padding = {
     left = 0,
