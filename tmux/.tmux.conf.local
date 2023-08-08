@@ -486,5 +486,7 @@ set-option -ga terminal-overrides ",foot:Tc"
 bind -r p previous-window # select previous window
 bind -r n next-window     # select next window
 
+# vim mode
+set-window-option -g mode-keys vi
 # 回话保存插件
 set -g @plugin 'tmux-plugins/tmux-resurrect'
