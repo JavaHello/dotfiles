@@ -6,7 +6,7 @@ local wezterm = require('wezterm')
 -- x86_64-unknown-linux-gnu - Linux
 local function fonts()
   local font = {
-    'Hack Nerd Font Mono',
+    'CaskaydiaCove Nerd Font Mono',
   }
   if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
     table.insert(font, 'Noto Sans Mono CJK SC')
@@ -28,7 +28,7 @@ return {
   },
   -- use_fancy_tab_bar = false,
   enable_tab_bar = false,
-  -- window_decorations = 'NONE',
+  window_decorations = 'NONE',
 
   font_size = 13,
   font = wezterm.font_with_fallback(fonts()),
