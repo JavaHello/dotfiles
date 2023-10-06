@@ -29,7 +29,7 @@ return {
   -- use_fancy_tab_bar = false,
   enable_tab_bar = false,
   window_decorations = 'NONE',
-
+  window_background_opacity = 0.8,
   font_size = 13,
   font = wezterm.font_with_fallback(fonts()),
   keys = {
