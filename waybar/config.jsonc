@@ -3,7 +3,7 @@
   "position": "top",
   "height": 27,
 
-  "modules-left": ["wlr/workspaces", "wlr/taskbar"],
+  "modules-left": ["hyprland/workspaces", "wlr/taskbar"],
   "modules-center": ["custom/media"],
   "modules-right": [
     "tray",
@@ -29,7 +29,7 @@
     "app_ids-mapping": {}
   },
 
-  "wlr/workspaces": {
+  "hyprland/workspaces": {
     // "disable-scroll": true,
     "sort-by-number": true,
     "all-outputs": true,
@@ -49,7 +49,7 @@
       "9": "<span color=\"#EBDBB2\">󰍹</span>",
       "urgent": "",
       "focused": "",
-      "default": ""
+      "default": "?"
     }
   },
 
