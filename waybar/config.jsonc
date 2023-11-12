@@ -96,8 +96,8 @@
   },
   "network": {
     "format-wifi": " 󰖩 {essid} ",
-    "format-ethernet": "  {essid} ",
-    "format-linked": "{ifname} (no ip)  ",
+    "format-ethernet": " 󰈀 {essid} ",
+    "format-linked": "{ifname} (no ip) 󰈁 ",
     "format-disconnected": " 󰖪 disconnected ",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "tooltip-format-wifi": "󰘊 {signalStrength}% |  {bandwidthDownBits},  {bandwidthUpBits}"
