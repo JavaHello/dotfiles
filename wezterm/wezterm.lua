@@ -6,7 +6,7 @@ local wezterm = require('wezterm')
 -- x86_64-unknown-linux-gnu - Linux
 local function fonts()
   local font = {
-    'CaskaydiaCove Nerd Font Mono',
+    'CaskaydiaCove NFM',
   }
   if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
     table.insert(font, 'Noto Sans Mono CJK SC')
