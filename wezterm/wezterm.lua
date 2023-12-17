@@ -17,7 +17,7 @@ local function fonts()
   end
   return font
 end
-return {
+local config = {
   -- window_background_opacity = 0.8,
   color_scheme = 'Gruvbox dark, medium (base16)',
   window_padding = {
@@ -36,3 +36,7 @@ return {
     { key = 'Enter', mods = 'CMD', action = wezterm.action.ToggleFullScreen },
   },
 }
+if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+  config.default_domain = 'WSL:Ubuntu'
+end
+return config
