@@ -1,0 +1,27 @@
+#!/bin/bash
+
+CHOICE=`$1 << EOF
+suspend
+lock
+reboot
+poweroff
+exit
+EOF`
+
+case $CHOICE in
+	suspend)
+		systemctl "suspend"
+		;;
+	lock)
+		swaylock
+		;;
+	reboot)
+		systemctl "reboot"
+		;;	
+	poweroff)
+		systemctl "poweroff"
+		;;
+	exit)
+		loginctl "terminate-user" "$USER"
+		;;
+esac

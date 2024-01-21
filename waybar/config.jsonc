@@ -7,7 +7,7 @@
   "modules-center": ["custom/media"],
   "modules-right": [
     "tray",
-    "pulseaudio",
+    "wireplumber",
     "cpu",
     "memory",
     "temperature",
@@ -104,11 +104,11 @@
     // "tooltip-format-wifi": " {signalStrength}% |  {bandwidthDownBits},  {bandwidthUpBits}"
   },
 
-  "pulseaudio": {
+  "wireplumber": {
     "format": "{icon} {volume}% ",
     "format-muted": "   muted ",
     "scroll-step": 5,
-    "on-click": "pactl set-sink-mute 0 toggle",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-click-middle": "pavucontrol",
     //"on-click-right": "~/.config/hypr/scripts/pactl_toggle.sh",
     "format-icons": {
@@ -123,8 +123,8 @@
   },
 
   "custom/power": {
-    "format": " ⏻ "
-    //"on-click": "~/.config/hypr/scripts/rofi-power"
+    "format": " ⏻ ",
+    "on-click": "power-menu \"tofi --prompt-text=Power-menu:\""
   },
 
   "mpd": {
