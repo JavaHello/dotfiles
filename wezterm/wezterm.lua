@@ -28,6 +28,8 @@ local config = {
   },
   -- use_fancy_tab_bar = false,
   enable_tab_bar = false,
+  -- TODO: 不生效
+  enable_scroll_bar = false,
   window_decorations = 'NONE',
   window_background_opacity = 0.8,
   font_size = 13,
