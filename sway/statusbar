@@ -1,0 +1,88 @@
+#!/bin/bash
+PREV_TOTAL="0"
+PREV_IDLE="0"
+
+BAR_NOW=""
+BAR_CPU=""
+BAR_MEM=""
+BAR_DISK=""
+BAR_VOL=""
+BAR_MIC=""
+BAR_PLAY=""
+now() {
+  BAR_NOW=$(date +"%Y-%m-%d %H:%M:%S")
+}
+
+
+
+# by Paul Colby (http://colby.id.au), no rights reserved ;)
+function cpuusage() {
+  CPU=($(sed -n 's/^cpu\s//p' /proc/stat))
+  IDLE=${CPU[3]} # Just the idle CPU time.
+
+  # Calculate the total CPU time.
+  TOTAL=0
+  for VALUE in "${CPU[@]:0:8}"; do
+    TOTAL=$((TOTAL+VALUE))
+  done
+
+  # Calculate the CPU usage since we last checked.
+  DIFF_IDLE=$((IDLE-PREV_IDLE))
+  DIFF_TOTAL=$((TOTAL-PREV_TOTAL))
+  DIFF_USAGE=$(((1000*(DIFF_TOTAL-DIFF_IDLE)/DIFF_TOTAL+5)/10))
+
+  # Remember the total and idle CPU times for the next check.
+  PREV_TOTAL="$TOTAL"
+  PREV_IDLE="$IDLE"
+
+  BAR_CPU="$DIFF_USAGE%"
+}
+
+memusage() {
+  BAR_MEM=$(free -m | awk 'NR==2{printf "%.2f%%", $3/$2*100 }')
+}
+
+diskusage() {
+  BAR_DISK=$(df -h | awk '$NF=="/"{printf "%s", $5}')
+}
+
+# pactl
+# pactl set-sink-volume \@DEFAULT_SINK@ +5%
+audio_volume() {
+  BAR_VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
+}
+
+# State: RUNNING
+microphone() {
+  local mic=$(pactl list sources | grep -B 1 "Name: alsa_input.usb-Blue_Microphones_Yeti_Nano_2243SG001AW8_888-000504041006-00.analog-stereo" | grep "State" | awk '{print $2}')
+  if [ $mic == "RUNNING" ]; then
+    BAR_MIC=""
+  else
+    BAR_MIC=""
+  fi
+}
+
+playerctl_info() {
+  play=$(playerctl status 2> /dev/null)
+  if [ $play == "Playing" ]; then
+    BAR_PLAY=" $(playerctl metadata --format '{{artist}} - {{title}}')"
+  elif [ $play == "Paused" ]; then
+    BAR_PLAY=""
+  else
+    BAR_PLAY=""
+  fi
+}
+
+
+#  |  |  90% | 󰻠 0.9% |  9.43% |  38% |  2024-12-17 20:35:21
+while true; do
+  now
+  cpuusage
+  memusage
+  diskusage
+  audio_volume
+  microphone
+  playerctl_info
+  echo "$BAR_MIC | $BAR_PLAY |  $BAR_VOL | 󰻠 $BAR_CPU |  $BAR_MEM |  $BAR_DISK |  $BAR_NOW"
+  sleep 1
+done

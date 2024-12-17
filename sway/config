@@ -54,7 +54,7 @@ exec --no-startup-id dbus-update-activation-environment --all
 exec gnome-keyring-daemon --start --components=secrets
 exec export $(gnome-keyring-daemon)
 exec mako
-exec fcitx5 -d
+exec --no-startup-id fcitx5 -d
 exec foot --server
 
 seat seat0 xcursor_theme Adwaita 24
@@ -280,7 +280,7 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     status_command {
-        while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+        ~/.config/sway/statusbar
     } 
 
     colors {
