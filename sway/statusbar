@@ -39,7 +39,7 @@ function cpuusage() {
 }
 
 memusage() {
-  BAR_MEM=$(free -m | awk 'NR==2{printf "%.2f%%", $3/$2*100 }')
+  BAR_MEM=$(free -m | awk 'NR==2{printf "%d%%", $3/$2*100 }')
 }
 
 diskusage() {
