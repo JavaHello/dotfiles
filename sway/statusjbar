@@ -1,0 +1,240 @@
+#!/bin/bash
+PREV_TOTAL="0"
+PREV_IDLE="0"
+
+BAR_NOW=""
+BAR_CPU=""
+# temperature
+BAR_CPU_TEMP=""
+BAR_MEM=""
+BAR_DISK=""
+BAR_VOL=""
+BAR_MIC=""
+BAR_PLAY=""
+
+# gruvbox
+white="#ebdbb2"
+black="#32302F"
+black2="#282828"
+red="#cc241d"
+green="#98971a"
+yellow="#d79921"
+blue="#458588"
+purple="#b16286"
+aqua="#689d6a"
+gray="#a89984"
+orange="#d65d0e"
+
+
+header() {
+  echo "{\"version\":1}"
+}
+urgent="false"
+
+common_json() {
+  echo -n "{"
+  echo -n "\"name\":\"$name\","
+  echo -n "\"full_text\":\"$full_text\","
+  echo -n "\"color\":\"$color\","
+  echo -n "\"background\":\"$background\","
+  echo -n "\"border\":\"$border\","
+  echo -n "\"min_width\":$min_width,"
+  echo -n "\"separator\":false,"
+  echo -n "\"urgent\":${urgent},"
+  echo -n "},"
+}
+
+
+
+
+now() {
+  BAR_NOW=$(date +"%Y-%m-%d %H:%M:%S")
+}
+
+now_json() {
+  now
+  local name="clock"
+  local full_text=" $BAR_NOW"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=100
+  common_json
+}
+
+
+
+# by Paul Colby (http://colby.id.au), no rights reserved ;)
+function cpuusage() {
+  CPU=($(sed -n 's/^cpu\s//p' /proc/stat))
+  IDLE=${CPU[3]} # Just the idle CPU time.
+
+  # Calculate the total CPU time.
+  TOTAL=0
+  for VALUE in "${CPU[@]:0:8}"; do
+    TOTAL=$((TOTAL+VALUE))
+  done
+
+  # Calculate the CPU usage since we last checked.
+  DIFF_IDLE=$((IDLE-PREV_IDLE))
+  DIFF_TOTAL=$((TOTAL-PREV_TOTAL))
+  DIFF_USAGE=$(((1000*(DIFF_TOTAL-DIFF_IDLE)/DIFF_TOTAL+5)/10))
+
+  # Remember the total and idle CPU times for the next check.
+  PREV_TOTAL="$TOTAL"
+  PREV_IDLE="$IDLE"
+
+  BAR_CPU="$DIFF_USAGE%"
+}
+
+cpuusage_json() {
+  cpuusage
+  local name="cpu_usage"
+  local full_text="󰻠 $BAR_CPU"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  common_json
+}
+
+cpu_temp() {
+  BAR_CPU_TEMP=$(sort -nr /sys/class/hwmon/hwmon2/{temp4_input,temp3_input} | head -n 1 | awk '{printf "%d󰔄", $1/1000}')
+}
+
+cpu_temp_json() {
+  cpu_temp
+  local name="cpu_temp"
+  local full_text=" $BAR_CPU_TEMP"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  common_json
+}
+
+memusage() {
+  BAR_MEM=$(free -m | awk 'NR==2{printf "%d%%", $3/$2*100 }')
+}
+
+memusage_json() {
+  memusage
+  local name="mem_usage"
+  local full_text=" $BAR_MEM"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  common_json
+}
+
+diskusage() {
+  BAR_DISK=$(df -h | awk '$NF=="/"{printf "%s", $5}')
+}
+
+diskusage_json() {
+  diskusage
+  local name="disk_usage"
+  local full_text=" $BAR_DISK"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  common_json
+}
+
+# pactl
+# pactl set-sink-volume \@DEFAULT_SINK@ +5%
+audio_volume() {
+  BAR_VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
+}
+
+audio_volume_json() {
+  audio_volume
+  local name="audio_volume"
+  local full_text=" $BAR_VOL"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  common_json
+}
+
+# State: RUNNING
+microphone_flag=0
+microphone() {
+  local mic=$(pactl list sources | grep -B 1 "Name: alsa_input.usb-Blue_Microphones_Yeti_Nano_2243SG001AW8_888-000504041006-00.analog-stereo" | grep "State" | awk '{print $2}')
+  if [[ $mic == "RUNNING" ]]; then
+    microphone_flag=1
+    BAR_MIC=""
+  else
+    microphone_flag=0
+    BAR_MIC=""
+  fi
+}
+
+microphone_json() {
+  microphone
+  local name="microphone"
+  local full_text="$BAR_MIC"
+  local color="$white"
+  local background="$black"
+  local border="$black"
+  local min_width=20
+  if [[ $microphone_flag == 1 ]]; then
+    local urgent="true"
+  else
+    local urgent="false"
+  fi
+  common_json
+}
+
+playing_flag=1
+playerctl_info() {
+  play=$(playerctl status 2> /dev/null)
+  if [ $play == "Playing" ]; then
+    BAR_PLAY=" $(playerctl metadata --format '{{artist}} - {{title}}')"
+    playing_flag=1
+  elif [ $play == "Paused" ]; then
+    playing_flag=0
+    BAR_PLAY=""
+  else
+    playing_flag=0
+    BAR_PLAY=""
+  fi
+}
+
+playerctl_info_json() {
+  playerctl_info
+  local name="playerctl_info"
+  local full_text="$BAR_PLAY"
+  if [[ $playing_flag == 1 ]]; then
+    local border="$blue"
+  else
+    local border="$black"
+  fi
+  local background="$black"
+  local color="$white"
+  local min_width=20
+  common_json
+}
+
+header
+echo -n "[[],"
+
+
+#  |  |  90% | 󰻠 0.9% |  9.43% |  38% |  2024-12-17 20:35:21
+while true; do
+  echo -n "["
+  microphone_json
+  playerctl_info_json
+  audio_volume_json
+  cpu_temp_json
+  cpuusage_json
+  memusage_json
+  diskusage_json
+  now_json
+  echo -n "],"
+  # echo "$BAR_MIC | $BAR_PLAY |  $BAR_VOL |  $BAR_CPU_TEMP | 󰻠 $BAR_CPU |  $BAR_MEM |  $BAR_DISK |  $BAR_NOW"
+  sleep 1
+done

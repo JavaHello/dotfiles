@@ -61,10 +61,14 @@ audio_volume() {
 # State: RUNNING
 microphone() {
   local mic=$(pactl list sources | grep -B 1 "Name: alsa_input.usb-Blue_Microphones_Yeti_Nano_2243SG001AW8_888-000504041006-00.analog-stereo" | grep "State" | awk '{print $2}')
-  if [ $mic == "RUNNING" ]; then
-    BAR_MIC=""
-  else
+  if [ -z $mic ]; then
     BAR_MIC=""
+  else
+    if [ $mic == "RUNNING" ]; then
+      BAR_MIC=""
+    else
+      BAR_MIC=""
+    fi
   fi
 }
 
