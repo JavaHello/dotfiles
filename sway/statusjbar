@@ -192,10 +192,10 @@ microphone_json() {
 playing_flag=1
 playerctl_info() {
   play=$(playerctl status 2> /dev/null)
-  if [ $play == "Playing" ]; then
+  if [[ $play == "Playing" ]]; then
     BAR_PLAY=" $(playerctl metadata --format '{{artist}} - {{title}}')"
     playing_flag=1
-  elif [ $play == "Paused" ]; then
+  elif [[ $play == "Paused" ]]; then
     playing_flag=0
     BAR_PLAY=""
   else
